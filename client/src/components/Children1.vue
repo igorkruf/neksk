@@ -14,7 +14,7 @@ export default {
       axios.post("http://localhost:3001/test");
     },
   },
-  //добавил комментарии в новой ветке 000000
+  //добавил комментарии в новой ветке 00
 };
 </script>
 <style>
