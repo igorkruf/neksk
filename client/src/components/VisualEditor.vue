@@ -1,11 +1,19 @@
 <template>
   <editor
-    api-key="no-api-key"
+    api-key="nyx85s6xtoknkbeeu3wi5431e0fqmcjltwzl14kygkydy1mo"
     :init="{
+      language: 'ru',
+      height: 300,
       menubar: false,
-      plugins: 'lists link image emoticons code',
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen media',
+        'insertdatetime media table paste code help wordcount',
+      ],
       toolbar:
-        ' bold italic | alignleft aligncenter alignright alignjustify | bullist numlist code|  link emoticons',
+        'undo redo | formatselect | bold italic backcolor | \
+           alignleft aligncenter alignright alignjustify | \
+           bullist numlist outdent indent | removeformat | help media',
     }"
   />
 </template>
@@ -14,9 +22,15 @@
 import Editor from "@tinymce/tinymce-vue";
 
 export default {
+  props: {
+    // editor: String,
+  },
   name: "App",
+  data() {
+    return {};
+  },
   components: {
-    Editor,
+    editor: Editor,
   },
 };
 </script>
