@@ -22,11 +22,8 @@
         ]"
       />
       <!-- <div class="q-pa-md q-gutter-sm"> -->
-      <!-- <q-editor v-model="editor" min-height="5rem" /> -->
 
-      <!-- <visualEditor v-model="editor"></visualEditor> -->
-
-      <textarea id="mytextarea">Hello, World!</textarea>
+      <visualEditor v-model="editor"></visualEditor>
     </q-form>
     <q-btn @click="addservice"></q-btn>
   </div>
@@ -35,7 +32,7 @@
 import { ref } from "vue";
 import axios from "axios";
 //импортируем визуальный редактор
-// import visualEditor from "../VisualEditor.vue";
+import visualEditor from "../VisualEditor.vue";
 
 export default {
   setup() {
@@ -54,11 +51,12 @@ export default {
         aaa: this.name1,
         ccc: this.age1,
         ddd: this.text,
+        fff: this.editor,
       });
     },
   },
   components: {
-    // visualEditor,
+    visualEditor,
   },
 };
 </script>

@@ -5,14 +5,13 @@
       menubar: false,
       plugins: 'lists link image emoticons code',
       toolbar:
-        'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist code|  link emoticons',
-      menubar: 'tools',
+        ' bold italic | alignleft aligncenter alignright alignjustify | bullist numlist code|  link emoticons',
     }"
   />
 </template>
 
 <script>
-//import Editor from "@tinymce/tinymce-vue";
+import Editor from "@tinymce/tinymce-vue";
 
 export default {
   name: "App",
