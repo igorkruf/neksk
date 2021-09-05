@@ -21,13 +21,25 @@
           (val) => (val > 0 && val < 100) || 'Please type a real age',
         ]"
       />
-      <!-- <div class="q-pa-md q-gutter-sm"> -->
+
       <visualEditor v-model="editor"></visualEditor>
-      <!-- <visualEditor v-model="editor" razmer="big"></visualEditor> -->
-      <!-- <textarea v-model="editor"></textarea> -->
-      <!-- <q-editor v-model="editor" min-height="5rem" /> -->
+      <!-- select -->
+      <q-select
+        filled
+        multiple
+        option-label="label1"
+        option-value="value1"
+        v-model="select"
+        label="Простой выбор"
+        :options="stringOptions"
+        style="width: 250px"
+        behavior="menu"
+      />
+      <br />
+      <br />
     </q-form>
-    <q-btn @click="addservice">qqq</q-btn>
+    <q-btn @click="addservice1">qqq</q-btn>
+    <q-btn @click="addservice">qqqMongo</q-btn>
   </div>
 </template>
 <script>
@@ -36,15 +48,28 @@ import axios from "axios";
 //импортируем визуальный редактор
 import visualEditor from "../VisualEditor.vue";
 //import Editor from "@tinymce/tinymce-vue";
+const stringOptions = [
+  { value1: "car", label1: "BMW" },
+  { label1: "Samsung Phone", value1: "phone" },
+];
 export default {
   setup() {
     const name1 = ref(null);
     const age1 = ref(null);
     const editor = ref("fffffff");
+    const select = ref(null);
+    const options = ref(stringOptions);
+    const addservice1 = () => {
+      console.log(select.value);
+    };
     return {
       name1,
       age1,
       editor,
+      stringOptions,
+      select,
+      options,
+      addservice1,
     };
   },
   methods: {
@@ -55,12 +80,13 @@ export default {
         ccc: this.age1,
         ddd: this.text,
         fff: this.editor,
+        ggg: this.select,
       });
     },
 
-    addservice1() {
-      console.log(this.editor);
-    },
+    // addservice1() {
+    //   console.log(this.select);
+    // },
   },
   components: {
     visualEditor: visualEditor,

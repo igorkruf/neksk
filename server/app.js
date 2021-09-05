@@ -287,7 +287,7 @@ app.post('/test/form', (req, res) => {
 
     res.set("Access-Control-Allow-Origin", '*');
     console.log('test/form');
-    console.log(req.body.aaa);
+    console.log(req.body.ggg);
 
     // // подключение
     mongoose.connect("mongodb://UserTest:UserTest@localhost:27017/test", { useUnifiedTopology: true, useNewUrlParser: true });
@@ -297,6 +297,7 @@ app.post('/test/form', (req, res) => {
         nameService: req.body.aaa,
         ageService: req.body.ccc,
         aboutService: req.body.fff,
+
     });
 
     testservice.save(function (err) {
