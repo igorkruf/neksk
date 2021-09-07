@@ -8,71 +8,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import Quasar from "@/components/Quasar";
 import FormAddService from "@/components/Admin/FormAddService.vue";
 import Children1 from "@/components/Children1.vue";
+import FormGenCsv from "@/components/Admin/Moodle/FormGenCsv.vue";
 const routes = [
-    // {
-    //     path: "/quasar",
-    //     name: "Quasar",
-    //     component: Quasar,
-    // },
-    // {
-    //     path: "/",
-    //     name: "Home",
-    //     component: Home,
-    // },
-    // {
-    //     path: "/about",
-    //     name: "About",
-    //     component: About,
-    //     meta: { title: 'О Черепенникове Игоре' }
-    // },
-    // {
-    //     path: "/services",
-    //     name: "Services",
-    //     component: Services,
-
-    //     meta: { title: 'Услуги Черепенникова Игоря' }
-    // },
-
-    // {
-    //     path: "/intereses",
-    //     name: "Intereses",
-    //     component: Intereses,
-    //     //meta: { title: ' Черепенникова Игоря' }
-    // },
-    // {
-    //     path: "/admin",
-    //     name: "Admin",
-    //     component: MainAdmin,
-    // children: [{
-    //     path: "/services",
-    //     component: Services,
-    //     meta: { title: 'Услуги Черепенникова Игоря' },
-    // },
-    // {
-    //     path: "/intereses",
-    //     component: Intereses,
-    //     meta: { title: ' Админим интересы Черепенникова Игоря' }
-    // },
-    // ],
-    //     meta: { title: ' Администрирование сайта Игоря' }
-    // },
-    // {
-    //     path: "/list",
-    //     name: "List",
-    //     component: TestList,
-    // children: [{
-    //     path: "/services",
-    //     component: Services,
-    //     meta: { title: 'Услуги Черепенникова Игоря' },
-    // },
-    // {
-    //     path: "/intereses",
-    //     component: Intereses,
-    //     meta: { title: ' Админим интересы Черепенникова Игоря' }
-    // },
-    // ],
-    //     meta: { title: ' Test Quasar' }
-    // },
 
     {
         path: "/quasar",
@@ -89,11 +26,14 @@ const routes = [
             component: Children1,
             meta: { title: 'Добавление Услуги Черепенникова Игоря' },
         },
-            // {
-            //     path: "/intereses",
-            //     component: Intereses,
-            //     meta: { title: ' Админим интересы Черепенникова Игоря' }
-            // },
+
+        {
+            path: "moodle/:id",
+            name: "Moodle",
+            component: FormGenCsv,
+            meta: { title: 'Генерация файла(списка) учеников' },
+        },
+
         ],
         meta: { title: ' Test Quasar' }
     },

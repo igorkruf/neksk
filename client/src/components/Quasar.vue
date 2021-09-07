@@ -149,6 +149,18 @@
             <q-item-section>Тэст</q-item-section>
           </q-item>
         </q-expansion-item>
+
+        <q-expansion-item
+          :content-inset-level="0.5"
+          expand-separator
+          icon=""
+          label="Moodle"
+          default-opened
+        >
+          <q-item clickable :to="{ name: 'Moodle', params: { id: 1 } }">
+            <q-item-section>Аграрный колледж</q-item-section>
+          </q-item>
+        </q-expansion-item>
       </q-list>
     </q-drawer>
 
