@@ -15,24 +15,27 @@ const routes = [
         path: "/quasar",
         name: "Quasar",
         component: Quasar,
-        children: [{
-            path: "addservice",
-            component: FormAddService,
-            meta: { title: 'Добавление Услуги Черепенникова Игоря' },
-        },
+        children: [
+            {
+                path: "addservice",
+                name: "addservice",
+                component: FormAddService,
+                meta: { title: 'Добавление Услуги Черепенникова Игоря' },
+            },
 
-        {
-            path: "test",
-            component: Children1,
-            meta: { title: 'Добавление Услуги Черепенникова Игоря' },
-        },
+            {
+                path: "test",
+                name: "test",
+                component: Children1,
+                meta: { title: 'Добавление Услуги Черепенникова Игоря' },
+            },
 
-        {
-            path: "moodle/:id",
-            name: "Moodle",
-            component: FormGenCsv,
-            meta: { title: 'Генерация файла(списка) учеников' },
-        },
+            {
+                path: "moodle/:id",
+                name: "Moodle",
+                component: FormGenCsv,
+                meta: { title: 'Генерация файла(списка) учеников' },
+            },
 
         ],
         meta: { title: ' Test Quasar' }

@@ -142,10 +142,10 @@
           label="Услуги"
           default-opened
         >
-          <q-item clickable :to="addservice">
+          <q-item clickable :to="{ name: 'addservice' }">
             <q-item-section>Добавление услуги</q-item-section>
           </q-item>
-          <q-item clickable to="test">
+          <q-item clickable :to="{ name: 'test' }">
             <q-item-section>Тэст</q-item-section>
           </q-item>
         </q-expansion-item>
