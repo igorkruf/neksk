@@ -29,7 +29,7 @@
             round
             @click="upload"
             :disable="!canUpload"
-            :loading="isUploading"
+            :loading="!isUploading"
           />
         </template>
       </q-file>
@@ -41,7 +41,7 @@ import { ref } from "vue";
 ////Для плагина Notify
 import { useQuasar } from "quasar";
 
-//import axios from "axios";
+import axios from "axios";
 export default {
   setup() {
     //строки сообщений об валидации полей формы
@@ -90,7 +90,14 @@ export default {
       this.canUpload = false;
     },
     upload() {
-      //let formData = new FormData();
+      let formData = new FormData();
+      formData.append("idgrup", this.familiya);
+      let ddd = formData.get("idgrup");
+      console.log(ddd);
+      //formData.append("file", this.files);
+      axios
+        .post("http://localhost:3001/gencsv", formData)
+        .then(console.log("сервер ответил"));
 
       console.log("здорово");
     },

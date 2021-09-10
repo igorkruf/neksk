@@ -5,7 +5,9 @@ const app = express()
 
 //app.use(mongoose)
 app.options('*', cors())
+//Для чтения formData
 const multer = require('multer')
+const upload = multer()
 //работа с изображениями GraphicsMagick 
 const gm = require('gm');
 //работа с файлами
@@ -369,7 +371,7 @@ app.post('/multiple-files', (req, res) => {
 
 
     res.send("<h2>Привет Express!</h2>");
-    console.log(req.files);
+    console.log(req.body);
 });
 // console.log(requ);
 // res.send(requ);
@@ -438,6 +440,17 @@ app.post('/formform', avatar.single('avatar'), function (req, res) {
 
 
 //console.log('igor');
+
+app.post('/gencsv', upload.none(), (req, res) => {
+
+
+    res.set('Access-Control-Allow-Origin', '*')
+    console.log(req.body.idgrup);
+
+    res.send("<h2>Привет Express!</h2>");
+
+});
+
 
 app.listen(3001);
 
