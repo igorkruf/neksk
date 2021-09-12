@@ -440,15 +440,65 @@ app.post('/formform', avatar.single('avatar'), function (req, res) {
 
 
 //console.log('igor');
+//const csv = require('csv-parser');
+app.post('/gencsv', upload.single('file'), (req, res) => {
+    //для преобразования русских букв в английские не забыть: word = word.toLowerCase();(перевести заглавные в строчные)
+    var translet = {
+        'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+        'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i',
+        'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n',
+        'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+        'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch',
+        'ш': 'sh', 'щ': 'sch', 'ь': '', 'ы': 'y', 'ъ': '',
+        'э': 'e', 'ю': 'yu', 'я': 'ya',
 
-app.post('/gencsv', upload.none(), (req, res) => {
 
-
+    };
     res.set('Access-Control-Allow-Origin', '*')
     console.log(req.body.idgrup);
+    let buffer = req.file.buffer.toString();
+    //console.log(buffer);
+    let array_buffer = buffer.split('\n');
+    //console.log(array_buffer);
+    let array_buffer1 = array_buffer.map(function (item) {
+        return item.replace(/\r/, '');
+    })
+    let array_str = [];
 
-    res.send("<h2>Привет Express!</h2>");
+    // console.log(array_buffer1);
+    array_buffer1.forEach(function (str) {
+        let array_str_item = [];
+        //каждую строку преобразуем в массив разделмтель ; (должен совпадать с разделителем в закачиваемом csv файле)
+        let strarr = str.split(';');
+        //преобразуем массив в массив где элементы только из строчных символов
+        let strarrlowercase = strarr.map(
+            function (a) {
+                let answer = "";
+                a = a.toLowerCase();
+                //Транскрипция
+                for (var i = 0; i < a.length; ++i) {
 
+                    if (translet[a[i]] == undefined) {
+                        answer += a[i];
+                    } else {
+                        answer += translet[a[i]];
+                    }
+                }
+                //////////////
+                return answer;
+            }
+        );
+        ////////////////////////////////////////////////////////
+        //превращаем строки в массив 
+        strarrlowercase.forEach(function (strarritem) {
+            let strarritemarr = strarritem.split('');
+            array_str_item.push(strarritemarr);
+        });
+        ////////////////////////
+        array_str.push(array_str_item);
+    });
+    console.log(array_str);
+    //res.send("<h2>Привет Express!</h2>");
 });
 
 

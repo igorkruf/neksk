@@ -94,7 +94,7 @@ export default {
       formData.append("idgrup", this.familiya);
       let ddd = formData.get("idgrup");
       console.log(ddd);
-      //formData.append("file", this.files);
+      formData.append("file", this.files);
       axios
         .post("http://localhost:3001/gencsv", formData)
         .then(console.log("сервер ответил"));
