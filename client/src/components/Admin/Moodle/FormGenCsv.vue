@@ -67,6 +67,7 @@ export default {
       files: null,
       familiya: "",
       canUpload: false,
+      finalcsv: null,
     };
   },
   methods: {
@@ -97,9 +98,27 @@ export default {
       formData.append("file", this.files);
       axios
         .post("http://localhost:3001/gencsv", formData)
-        .then(console.log("сервер ответил"));
+        .then((res) => {
+          // this.finalcsv = res.data;
+          // console.log(this.finalcsv);
+          var blob = new Blob([res.data], { type: "text/csv;charset=utf-8;" });
+          var link = document.createElement("a");
+          var url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", ddd);
+          //link.setAttribute("download");
+          link.style.visibility = "hidden";
+          //document.body.appendChild(link);
+          link.click();
+          //document.body.removeChild(link);
+        })
+        .then(() => {
+          this.files = null;
+          this.familiya = null;
+          this.canUpload = false;
+        });
 
-      console.log("здорово");
+      //console.log("здорово");
     },
   },
   //добавил комментарии в новой ветке "tinymce"

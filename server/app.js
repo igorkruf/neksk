@@ -442,6 +442,7 @@ app.post('/formform', avatar.single('avatar'), function (req, res) {
 //console.log('igor');
 //const csv = require('csv-parser');
 app.post('/gencsv', upload.single('file'), (req, res) => {
+
     //для преобразования русских букв в английские не забыть: word = word.toLowerCase();(перевести заглавные в строчные)
     var translet = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
@@ -450,55 +451,131 @@ app.post('/gencsv', upload.single('file'), (req, res) => {
         'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
         'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch',
         'ш': 'sh', 'щ': 'sch', 'ь': '', 'ы': 'y', 'ъ': '',
-        'э': 'e', 'ю': 'yu', 'я': 'ya',
+        'э': 'e', 'ю': 'yu', 'я': 'ya', '.': ''
 
 
     };
     res.set('Access-Control-Allow-Origin', '*')
-    console.log(req.body.idgrup);
+    //console.log(req.body.idgrup);
+    console.log(req.file);
     let buffer = req.file.buffer.toString();
     //console.log(buffer);
-    let array_buffer = buffer.split('\n');
+    let array_buffer = buffer.split('\r\n');
     //console.log(array_buffer);
-    let array_buffer1 = array_buffer.map(function (item) {
-        return item.replace(/\r/, '');
-    })
+    // В конце массива - пустой элемент('')
+    //удалим
+    let array_buffer1 = array_buffer.filter(function (elem) {
+        return elem != '';
+    });
+    //console.log(array_buffer1);
+    // let array_buffer1 = array_buffer.map(function (item, i) {
+    //     return item.replace(/\r/, '');
+    // })
+    //let array_str_final = [];
     let array_str = [];
 
     // console.log(array_buffer1);
-    array_buffer1.forEach(function (str) {
+    array_buffer1.forEach(function (str, index) {
         let array_str_item = [];
-        //каждую строку преобразуем в массив разделмтель ; (должен совпадать с разделителем в закачиваемом csv файле)
-        let strarr = str.split(';');
-        //преобразуем массив в массив где элементы только из строчных символов
-        let strarrlowercase = strarr.map(
-            function (a) {
-                let answer = "";
-                a = a.toLowerCase();
-                //Транскрипция
-                for (var i = 0; i < a.length; ++i) {
 
-                    if (translet[a[i]] == undefined) {
-                        answer += a[i];
-                    } else {
-                        answer += translet[a[i]];
+        //каждую строку (кроме первой- которую не добавляем в итоговый массив)преобразуем в массив разделмтель ; (должен совпадать с разделителем в закачиваемом csv файле)
+        if (index != 0) {
+            let strarr = str.split(';');
+
+            let firstname = strarr[0] + ' ' + strarr[1] + ' ' + strarr[2];
+            strarr.push(firstname);
+            let lastname = req.body.idgrup;
+            strarr.push(lastname);
+            //console.log(strarr);
+            //преобразуем массив в массив где элементы только из строчных символов
+            let strarrlowercase = strarr.map(
+                function (a, i) {
+                    //транскрипция только не для поля firstname
+                    if (i != 4 && i != 5) {
+                        let answer = "";
+
+                        a = a.toLowerCase();
+                        //Транскрипция
+                        for (var i = 0; i < a.length; ++i) {
+
+                            if (translet[a[i]] == undefined) {
+                                answer += a[i];
+                            } else {
+                                answer += translet[a[i]];
+                            }
+                        }
+                        //////////////
+                        return answer;
+                    }
+                    else {
+                        return a;
                     }
                 }
-                //////////////
-                return answer;
-            }
-        );
-        ////////////////////////////////////////////////////////
-        //превращаем строки в массив 
-        strarrlowercase.forEach(function (strarritem) {
-            let strarritemarr = strarritem.split('');
-            array_str_item.push(strarritemarr);
-        });
-        ////////////////////////
-        array_str.push(array_str_item);
+            );
+            console.log(strarrlowercase);
+            //оставляем первые буквы(английские) в имени и отчестве
+            let strarrlowercaseio = strarrlowercase.map(
+                function (a, index) {
+
+                    if (index == 1 || index == 2) {
+                        aio = a[0];
+                    }
+                    else {
+                        aio = a
+                    }
+
+                    //let answer = "";
+                    //a = a.toLowerCase();
+
+                    //////////////
+                    return aio;
+                }
+
+
+
+
+            );
+
+
+            array_str.push(strarrlowercaseio);
+            //console.log(firstname);
+            //array_str.push(firstname);
+        }
+        //    console.log(array_str);
+
+        //global.firstname;
     });
-    console.log(array_str);
-    //res.send("<h2>Привет Express!</h2>");
+
+    //формируем строки финального массива(из которого сформируем csv)
+    let array_str_final = array_str.map(function (el, index) {
+        // if (index == 0) {
+        //     finalel = ['username', 'password', 'firstname', 'lastname', 'email'];
+        // }
+        // else {
+
+        let username = el[0] + el[1] + el[2] + el[3];
+        let firstname = el[4];
+        let lastname = el[5];
+        let email = username + '@pochta.invalid';
+        let password = 123456;
+        let finalel = [username, password, firstname, lastname, email];
+
+        return finalel;
+    })
+    //добавляем 
+    array_str_final.unshift(['username', 'password', 'firstname', 'lastname', 'email']);
+    ////////////////////////////////////////////////////////
+
+    console.log(array_str_final);
+    var str = '';
+    for (var i = 0; i < array_str_final.length; i++) {
+        let line = '';
+        line = array_str_final[i].join(",");
+        str += line + '\r\n';
+    }
+    console.log(str);
+
+    res.send(str);
 });
 
 

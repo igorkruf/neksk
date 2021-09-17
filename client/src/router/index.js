@@ -9,6 +9,7 @@ import Quasar from "@/components/Quasar";
 import FormAddService from "@/components/Admin/FormAddService.vue";
 import Children1 from "@/components/Children1.vue";
 import FormGenCsv from "@/components/Admin/Moodle/FormGenCsv.vue";
+import VueGenCsv from "@/components/Admin/Moodle/VueGenCsv.vue";
 const routes = [
 
     {
@@ -34,6 +35,12 @@ const routes = [
                 path: "moodle/:id",
                 name: "Moodle",
                 component: FormGenCsv,
+                meta: { title: 'Генерация файла(списка) учеников' },
+            },
+            {
+                path: "moodle/:id",
+                name: "VueMoodle",
+                component: VueGenCsv,
                 meta: { title: 'Генерация файла(списка) учеников' },
             },
 

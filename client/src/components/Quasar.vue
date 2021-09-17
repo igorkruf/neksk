@@ -160,6 +160,11 @@
           <q-item clickable :to="{ name: 'Moodle', params: { id: 1 } }">
             <q-item-section>Аграрный колледж</q-item-section>
           </q-item>
+          <q-item clickable :to="{ name: 'VueMoodle', params: { id: 2 } }">
+            <q-item-section
+              >Аграрные колледж(без Backend только Vue)</q-item-section
+            >
+          </q-item>
         </q-expansion-item>
       </q-list>
     </q-drawer>
