@@ -92,7 +92,7 @@ export default {
       this.canUpload = false;
     },
     upload() {
-      //console.log(this.files);
+      console.log(this.files);
       //для преобразования русских букв в английские не забыть: word = word.toLowerCase();(перевести заглавные в строчные)
       let translet = {
         а: "a",
@@ -130,7 +130,8 @@ export default {
         я: "ya",
         ".": "",
       };
-      //парсим содержимое csv файла(пока не используем)
+      //контекст this не работает в конструкторе filereader - определяем переменную metka_gr а она уже видна в конструкторе -непонятно почему
+      let metka_gr = this.familiya;
       let reader = new FileReader();
       reader.readAsText(this.files);
       reader.onload = function () {
@@ -146,19 +147,27 @@ export default {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         let array_str = [];
 
-        // console.log(array_buffer1);
-        reader.result.forEach(function (str, index) {
+        let array_buffer = reader.result.split("\r\n");
+        console.log(array_buffer);
+        //Убираем пустые элементы массива array_buffer(почему то есть пустой элемент в конце)
+        let array_buffer1 = array_buffer.filter(function (elem) {
+          return elem != "";
+        });
+        console.log(array_buffer1);
+        array_buffer1.forEach(function (str, index) {
+          //console.log(this.familiya);
           //let array_str_item = [];
 
           //каждую строку (кроме первой- которую не добавляем в итоговый массив)преобразуем в массив разделмтель ; (должен совпадать с разделителем в закачиваемом csv файле)
           if (index != 0) {
             let strarr = str.split(";");
-
+            console.log(strarr);
             let firstname = strarr[0] + " " + strarr[1] + " " + strarr[2];
             strarr.push(firstname);
-            let lastname = this.familiya;
-            strarr.push(lastname);
-            //console.log(strarr);
+            console.log(strarr);
+
+            strarr.push(metka_gr);
+            console.log(strarr);
             //преобразуем массив в массив где элементы только из строчных символов
             let strarrlowercase = strarr.map(function (a, i) {
               //транскрипция только не для поля firstname(имя) и не для поля lastname(фамилия)
@@ -222,7 +231,7 @@ export default {
 
           return finalel;
         });
-        //добавляем
+        //добавляем элемент (строку)в начало массива
         array_str_final.unshift([
           "username",
           "password",
@@ -240,7 +249,19 @@ export default {
           str += line + "\r\n";
         }
         console.log(str);
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        var blob = new Blob([str], { type: "text/csv;charset=utf-8;" });
+        let link = document.createElement("a");
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        //Настраиваем имя и расширение сохраняемого файла
+        link.setAttribute("download", `${metka_gr}.csv`);
+        //link.setAttribute("download");
+        link.style.visibility = "hidden";
+        //document.body.appendChild(link);
+        link.click();
+        //document.body.removeChild(link);
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////
       };
     },
     //добавил комментарии в новой ветке "tinymce"

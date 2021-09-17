@@ -105,7 +105,7 @@ export default {
           var link = document.createElement("a");
           var url = URL.createObjectURL(blob);
           link.setAttribute("href", url);
-          link.setAttribute("download", ddd);
+          link.setAttribute("download", `${ddd}.csv`);
           //link.setAttribute("download");
           link.style.visibility = "hidden";
           //document.body.appendChild(link);
