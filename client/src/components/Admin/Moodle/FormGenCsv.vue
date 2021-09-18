@@ -1,5 +1,6 @@
 <template >
   <div>
+    <h1>{{ id }}</h1>
     <div class="q-gutter-md row items-start">
       <q-input
         filled
@@ -62,6 +63,7 @@ export default {
       TypeFile,
     };
   },
+  props: ["id"],
   data() {
     return {
       files: null,

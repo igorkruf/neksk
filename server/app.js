@@ -285,7 +285,7 @@ app.post('/test', (req, res) => {
 
 ////////////////
 
-app.post('/test/form', (req, res) => {
+app.post('/admin/addservice', (req, res) => {
 
     res.set("Access-Control-Allow-Origin", '*');
     console.log('test/form');

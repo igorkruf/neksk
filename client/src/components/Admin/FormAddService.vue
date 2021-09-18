@@ -4,27 +4,26 @@
       <q-input
         filled
         v-model="name1"
-        label="Your name *"
-        hint="Name and surname"
+        label="Название услуги"
         lazy-rules
-        :rules="[(v) => (v && v.length > 0) || 'Please type something']"
-      />
-
-      <q-input
-        filled
-        type="number"
-        v-model="age1"
-        label="Your age *"
-        lazy-rules
-        :rules="[
-          (val) => (val !== null && val !== '') || 'Please type your age',
-          (val) => (val > 0 && val < 100) || 'Please type a real age',
-        ]"
+        :rules="[(v) => (v && v.length > 0) || 'Обязательно заполнить']"
       />
 
       <visualEditor v-model="editor"></visualEditor>
+
+      <q-input
+        filled
+        type="text"
+        v-model="age1"
+        label="Стоимость услуги от..."
+        mask="### ### ###"
+        reverse-fill-mask
+        input-class="text-right"
+        style="width: 200px"
+        suffix=" руб."
+      />
       <!-- select -->
-      <q-select
+      <!-- <q-select
         filled
         multiple
         option-label="label1"
@@ -34,7 +33,7 @@
         :options="stringOptions"
         style="width: 250px"
         behavior="menu"
-      />
+      /> -->
       <br />
       <br />
     </q-form>
@@ -75,7 +74,7 @@ export default {
   methods: {
     addservice() {
       console.log(this.editor);
-      axios.post("http://localhost:3001/test/form", {
+      axios.post("http://localhost:3001/admin/addservice", {
         aaa: this.name1,
         ccc: this.age1,
         ddd: this.text,

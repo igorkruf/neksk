@@ -10,7 +10,19 @@ import FormAddService from "@/components/Admin/FormAddService.vue";
 import Children1 from "@/components/Children1.vue";
 import FormGenCsv from "@/components/Admin/Moodle/FormGenCsv.vue";
 import VueGenCsv from "@/components/Admin/Moodle/VueGenCsv.vue";
+import Header from "@/components/Header.vue";
+import Body from "@/components/Body.vue";
+import Footer from "@/components/Footer.vue";
 const routes = [
+    {
+        path: "/",
+        name: "Home",
+        components: {
+            default: Body,
+            header: Header,
+            footer: Footer,
+        }
+    },
 
     {
         path: "/quasar",
@@ -35,6 +47,7 @@ const routes = [
                 path: "moodle/:id",
                 name: "Moodle",
                 component: FormGenCsv,
+                props: true,
                 meta: { title: 'Генерация файла(списка) учеников' },
             },
             {
