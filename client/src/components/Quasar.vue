@@ -138,32 +138,30 @@
         <q-expansion-item
           :content-inset-level="0.5"
           expand-separator
-          icon="mail"
-          label="Услуги"
+          icon="build"
+          label="Услуги, технологии. "
           default-opened
         >
           <q-item clickable :to="{ name: 'addservice' }">
-            <q-item-section>Добавление услуги</q-item-section>
+            <q-item-section>Услуги</q-item-section>
           </q-item>
           <q-item clickable :to="{ name: 'test' }">
-            <q-item-section>Тэст</q-item-section>
+            <q-item-section>Технологии</q-item-section>
           </q-item>
         </q-expansion-item>
 
         <q-expansion-item
           :content-inset-level="0.5"
           expand-separator
-          icon=""
-          label="Moodle"
+          icon="how_to_reg"
+          label="Moodle(генерация CSV)"
           default-opened
         >
-          <q-item clickable :to="{ name: 'Moodle', params: { id: 1 } }">
+          <!-- <q-item clickable :to="{ name: 'Moodle', params: { id: 1 } }">
             <q-item-section>Аграрный колледж</q-item-section>
-          </q-item>
+          </q-item> -->
           <q-item clickable :to="{ name: 'VueMoodle', params: { id: 2 } }">
-            <q-item-section
-              >Аграрные колледж(без Backend только Vue)</q-item-section
-            >
+            <q-item-section>Аграрные колледж)</q-item-section>
           </q-item>
         </q-expansion-item>
       </q-list>

@@ -53,6 +53,13 @@ export default {
       });
     };
 
+    const GoodAddService = () => {
+      $q.notify({
+        type: "positive",
+        message: "Файл удачно сгенерирован и предложен вам для скачивания",
+      });
+    };
+
     //////////////////////////////
     //const canUpload = ref(false);
     const isUploading = ref(true);
@@ -60,6 +67,7 @@ export default {
       //canUpload,
       isUploading,
       TypeFile,
+      GoodAddService,
     };
   },
   data() {
@@ -263,6 +271,7 @@ export default {
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////
       };
+      this.GoodAddService();
     },
     //добавил комментарии в новой ветке "tinymce"
   },

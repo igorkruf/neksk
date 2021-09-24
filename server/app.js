@@ -2,7 +2,12 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
-
+//cors
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 //app.use(mongoose)
 app.options('*', cors())
 //Для чтения formData
@@ -151,55 +156,55 @@ app.use(bodyParser.json());
 //Обработка формы добавления услуги
 
 
-app.post('/addservice', as.single("userfile"), async (req, res) => {
-    //console.log(req.body);
-    // let filedata = req.file;
-    // console.log(filedata);
-    res.set("Access-Control-Allow-Origin", '*');
+// app.post('/addservice', as.single("userfile"), async (req, res) => {
+//     //console.log(req.body);
+//     // let filedata = req.file;
+//     // console.log(filedata);
+//     res.set("Access-Control-Allow-Origin", '*');
 
 
-    mongoose.connect("mongodb://yura:123456@localhost:27017/website", { useUnifiedTopology: true, useNewUrlParser: true });
-    //console.log(req.body.parentservices);
-    //const pservices = req.body.parentservices;
-    // const parservices = pservices.map(function (parservice) {
-    //     console.log(parservice);
-    //     //       content: sotrudnik.content.rendered,
-    // });
+//     mongoose.connect("mongodb://yura:123456@localhost:27017/website", { useUnifiedTopology: true, useNewUrlParser: true });
+//     //console.log(req.body.parentservices);
+//     //const pservices = req.body.parentservices;
+//     // const parservices = pservices.map(function (parservice) {
+//     //     console.log(parservice);
+//     //     //       content: sotrudnik.content.rendered,
+//     // });
 
-    //res.send(parservices);
-
-
-    const service = new Service({
-        paretn_service: req.body.parentservices,
-        name_service: req.body.nameservice,
-        min_price_service: req.body.minpriceservice,
-    });
+//     //res.send(parservices);
 
 
-    await service.save(function (err) {
+//     const service = new Service({
+//         paretn_service: req.body.parentservices,
+//         name_service: req.body.nameservice,
+//         min_price_service: req.body.minpriceservice,
+//     });
 
-        //mongoose.disconnect();  // отключение от базы данных
 
-        if (err) return console.log(err);
-        console.log("Сохранен объект", service);
-        // Service.find(function (err, services) {
-        //     if (err) return console.error(err);
-        //     console.log(services);
-        //     //res.send(services);
-        mongoose.disconnect();  // отключение от базы данных
-        // });
-        console.log('wwwwwwwwwwwww');
-        res.end();
-    });
+//     await service.save(function (err) {
 
-    //console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqq');
+//         //mongoose.disconnect();  // отключение от базы данных
 
-});
+//         if (err) return console.log(err);
+//         console.log("Сохранен объект", service);
+//         // Service.find(function (err, services) {
+//         //     if (err) return console.error(err);
+//         //     console.log(services);
+//         //     //res.send(services);
+//         mongoose.disconnect();  // отключение от базы данных
+//         // });
+//         console.log('wwwwwwwwwwwww');
+//         res.end();
+//     });
+
+//     //console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqq');
+
+// });
 ////////////////Получить список услуг 
 
 app.get("/services", (req, res) => {
 
-    res.set("Access-Control-Allow-Origin", '*');
+    //res.set("Access-Control-Allow-Origin", '*');
 
 
     // подключение
@@ -225,7 +230,7 @@ app.post('/addinteres', arhImgInteres.single("userfile"), (req, res) => {
     console.log(req.body);
     // let filedata = req.file;
     // console.log(filedata);
-    res.set("Access-Control-Allow-Origin", '*');
+    //res.set("Access-Control-Allow-Origin", '*');
 
 
     mongoose.connect("mongodb://yura:123456@localhost:27017/website", { useUnifiedTopology: true, useNewUrlParser: true });
@@ -282,34 +287,97 @@ app.post('/test', (req, res) => {
 
 });
 
+////////////////
+
+/////////////////////
+
+app.get('/admin/spisokservices', (req, res) => {
+
+    //res.set("Access-Control-Allow-Origin", '*');
+
+
+    // подключение
+    mongoose.connect("mongodb://chivic:Pervil-9@89.108.64.98:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+
+
+    Service.find(function (err, services) {
+        if (err) return console.error(err);
+        //console.log(services);
+        res.send(services);
+        mongoose.disconnect();  // отключение от базы данных
+    });
+
+    //
+
+});
+
+
 
 ////////////////
 
 app.post('/admin/addservice', (req, res) => {
-
-    res.set("Access-Control-Allow-Origin", '*');
+    // Функция удаления пробелов(для преобразования стоимости услуги из текста в number)
+    function del_spaces(str) {
+        str = str.replace(/\s/g, '');
+        return str;
+    }
+    /////////////////////////
+    //res.set("Access-Control-Allow-Origin", '*');
     console.log('test/form');
-    console.log(req.body.ggg);
+
 
     // // подключение
-    mongoose.connect("mongodb://UserTest:UserTest@localhost:27017/test", { useUnifiedTopology: true, useNewUrlParser: true });
+    mongoose.connect("mongodb://chivic:Pervil-9@89.108.64.98:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    console.log(req.body.name);
+    console.log(req.body.editor);
+    console.log(req.body.cena);
+    let cena = del_spaces(req.body.cena);
+    let cenafinal = Number(cena);
+    console.log(cenafinal);
 
     //const Service = mongoose.model("Service", TestService);
-    const testservice = new TestService({
-        nameService: req.body.aaa,
-        ageService: req.body.ccc,
-        aboutService: req.body.fff,
+    const addservice = new Service({
+        nameService: req.body.name,
+        aboutService: req.body.editor,
+        minPriceService: cenafinal,
 
     });
 
-    testservice.save(function (err) {
-        mongoose.disconnect();  // отключение от базы данных
+    addservice.save(function (err) {
+
+        Service.find(function (error, services) {
+            if (error) return console.error(error);
+            //console.log(services);
+            res.send(services);
+            mongoose.disconnect();  // отключение от базы данных
+        });
+
+
 
         if (err) return console.log(err);
-        console.log("Сохранен объект", testservice);
+        console.log("Сохранен объект", addservice);
+        //res.end();
     });
 });
 ////////////////// 
+//Удаление service
+app.delete('/admin/delservice/:idservice', async (req, res) => {
+    let sss = req.params.idservice;
+    mongoose.connect("mongodb://chivic:Pervil-9@89.108.64.98:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    await Service.deleteOne({ _id: sss }, (error, mongooseDeleteResult) => {
+        // res.send(mongooseDeleteResult);
+        Service.find(function (error, services) {
+            if (error) return console.error(error);
+            console.log(services);
+            res.send([services, mongooseDeleteResult]);
+            mongoose.disconnect();  // отключение от базы данных
+        });
+
+    });
+
+
+
+});
 
 
 ////////////////
