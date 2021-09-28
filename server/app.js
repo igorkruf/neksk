@@ -3,13 +3,16 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
 //cors
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors(
+    {
+        origin: '*',
+        methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'OPTIONS'],
+        allowedHeaders: ['Origin', 'X-Requested-With', 'Accept', 'Content-Type'],
+    }
+
+));
 //app.use(mongoose)
-app.options('*', cors())
+//app.options('*', cors())
 //Для чтения formData
 const multer = require('multer')
 const upload = multer()
@@ -297,7 +300,7 @@ app.get('/admin/spisokservices', (req, res) => {
 
 
     // подключение
-    mongoose.connect("mongodb://chivic:Pervil-9@89.108.64.98:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    mongoose.connect("mongodb://chivic:Pervil-9@127.0.0.1:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
 
 
     Service.find(function (err, services) {
@@ -327,7 +330,7 @@ app.post('/admin/addservice', (req, res) => {
 
 
     // // подключение
-    mongoose.connect("mongodb://chivic:Pervil-9@89.108.64.98:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    mongoose.connect("mongodb://chivic:Pervil-9@127.0.0.1:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
     console.log(req.body.name);
     console.log(req.body.editor);
     console.log(req.body.cena);
@@ -363,7 +366,7 @@ app.post('/admin/addservice', (req, res) => {
 //Удаление service
 app.delete('/admin/delservice/:idservice', async (req, res) => {
     let sss = req.params.idservice;
-    mongoose.connect("mongodb://chivic:Pervil-9@89.108.64.98:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    mongoose.connect("mongodb://chivic:Pervil-9@127.0.0.1:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
     await Service.deleteOne({ _id: sss }, (error, mongooseDeleteResult) => {
         // res.send(mongooseDeleteResult);
         Service.find(function (error, services) {

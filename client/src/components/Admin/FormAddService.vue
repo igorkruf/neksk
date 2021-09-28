@@ -60,6 +60,7 @@ import spisokServices from "@/components/Admin/SpisokServices.vue";
 // ];
 export default {
   setup() {
+    console.log("fffffff");
     axios.get("http://localhost:3001/admin/spisokservices", {}).then((res) => {
       spserv.value = res.data;
     });
