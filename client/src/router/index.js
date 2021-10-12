@@ -7,21 +7,49 @@ import { createWebHistory, createRouter } from "vue-router";
 // import TestList from "@/components/TestList";
 import Quasar from "@/components/Quasar";
 import FormAddService from "@/components/Admin/FormAddService.vue";
-import Children1 from "@/components/Children1.vue";
+import Tehnology from "@/components/Admin/FormAddTehnology.vue";
 import FormGenCsv from "@/components/Admin/Moodle/FormGenCsv.vue";
 import VueGenCsv from "@/components/Admin/Moodle/VueGenCsv.vue";
-import Header from "@/components/Header.vue";
+import Service from "@/components/Uslugi/Usluga.vue";
 import Body from "@/components/Body.vue";
-import Footer from "@/components/Footer.vue";
+import BodyUslugi from "@/components/BodyUslugi.vue";
+import BodyTehnologes from "@/components/BodyTehnologes.vue";
+
 const routes = [
     {
         path: "/",
         name: "Home",
         components: {
             default: Body,
-            header: Header,
-            footer: Footer,
-        }
+
+        },
+        meta: { title: 'Главная страница' },
+    },
+    {
+        path: "/uslugi",
+        name: "Uslugi",
+        components: {
+            default: BodyUslugi,
+
+        },
+        meta: { title: 'Услуги' },
+        children: [{
+            path: ":id_service",
+            name: "Service",
+            component: Service,
+            meta: { title: 'Главная страница' },
+        }],
+    },
+
+    {
+        path: "/tehnologes",
+        name: "Tehnologes",
+        components: {
+            default: BodyTehnologes,
+
+        },
+        meta: { title: 'Технологии' },
+
     },
 
     {
@@ -37,10 +65,11 @@ const routes = [
             },
 
             {
-                path: "test",
-                name: "test",
-                component: Children1,
-                meta: { title: 'Добавление Услуги Черепенникова Игоря' },
+                path: "addtehnology",
+                name: "addtehnology",
+                component: Tehnology,
+                meta: { title: 'Добавление технологии Черепенникова Игоря' },
+
             },
 
             {

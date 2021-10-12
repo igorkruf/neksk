@@ -22,7 +22,7 @@ const gm = require('gm');
 const fs = require('fs');
 //Схемы документов
 const Service = require('./Mongoose/Service');
-const Interes = require('./Mongoose/Interes');
+const Tehnologe = require('./Mongoose/Tehnologe');
 const RazdelInteres = require('./Mongoose/RazdelInteres');
 const TestService = require('./Mongoose/TestAddService');
 //Хранилище аватарок
@@ -305,7 +305,7 @@ app.get('/admin/spisokservices', (req, res) => {
 
     Service.find(function (err, services) {
         if (err) return console.error(err);
-        //console.log(services);
+        console.log(services);
         res.send(services);
         mongoose.disconnect();  // отключение от базы данных
     });
@@ -384,6 +384,89 @@ app.delete('/admin/delservice/:idservice', async (req, res) => {
 
 
 ////////////////
+
+////////////////
+
+app.post('/admin/addtehnologe', (req, res) => {
+
+    //res.set("Access-Control-Allow-Origin", '*');
+    //console.log('test/form');
+
+
+    // // подключение
+    mongoose.connect("mongodb://chivic:Pervil-9@127.0.0.1:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    // console.log(req.body.name);
+    // console.log(req.body.editor);
+    const addtehnologe = new Tehnologe({
+        nameTehnologe: req.body.name,
+        aboutTehnologe: req.body.editor,
+
+
+    });
+
+    addtehnologe.save(function (err, saveResult) {
+        console.log(saveResult);
+        Tehnologe.find(function (error, tehnologes) {
+            if (error) return console.error(error);
+            //console.log(services);
+            res.send([tehnologes, saveResult]);
+            mongoose.disconnect();  // отключение от базы данных
+        });
+
+
+
+        if (err) return console.log(err);
+        console.log("Сохранен объект", addtehnologe);
+        //res.end();
+    });
+});
+///////////////////////
+
+app.get('/admin/spisoktehnologes', (req, res) => {
+
+    //res.set("Access-Control-Allow-Origin", '*');
+
+
+    // подключение
+    mongoose.connect("mongodb://chivic:Pervil-9@127.0.0.1:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+
+
+    Tehnologe.find(function (err, tehnologes) {
+        if (err) return console.error(err);
+        console.log(tehnologes);
+        res.send(tehnologes);
+        mongoose.disconnect();  // отключение от базы данных
+    });
+
+    //
+
+});
+
+
+////////////////// 
+//Удаление service
+app.delete('/admin/deltehnologe/:idtehnologe', async (req, res) => {
+    let sss = req.params.idtehnologe;
+    //console.log(sss);
+    mongoose.connect("mongodb://chivic:Pervil-9@127.0.0.1:27017/chivic", { useUnifiedTopology: true, useNewUrlParser: true });
+    await Tehnologe.deleteOne({ _id: sss }, (error, mongooseDeleteResult) => {
+
+        Tehnologe.find(function (error, tehnologes) {
+            if (error) return console.error(error);
+            console.log(tehnologes);
+            res.send([tehnologes, mongooseDeleteResult]);
+            mongoose.disconnect();  // отключение от базы данных
+        });
+
+    });
+
+
+
+});
+
+
+////////////////
+
 
 app.post('/form', (req, res) => {
 
