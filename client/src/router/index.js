@@ -6,10 +6,10 @@ import { createWebHistory, createRouter } from "vue-router";
 // import MainAdmin from "@/components/MainPage";
 // import TestList from "@/components/TestList";
 import Quasar from "@/components/Quasar";
-import FormAddService from "@/components/Admin/FormAddService.vue";
-import Tehnology from "@/components/Admin/FormAddTehnology.vue";
-import FormGenCsv from "@/components/Admin/Moodle/FormGenCsv.vue";
-import VueGenCsv from "@/components/Admin/Moodle/VueGenCsv.vue";
+//import FormAddService from "@/components/Admin/FormAddService.vue";
+//import Tehnology from "@/components/Admin/FormAddTehnology.vue";
+//import FormGenCsv from "@/components/Admin/Moodle/FormGenCsv.vue";
+//import VueGenCsv from "@/components/Admin/Moodle/VueGenCsv.vue";
 import Service from "@/components/Uslugi/Usluga.vue";
 import Body from "@/components/Body.vue";
 import BodyUslugi from "@/components/BodyUslugi.vue";
@@ -57,34 +57,34 @@ const routes = [
         name: "Quasar",
         component: Quasar,
         children: [
-            {
-                path: "addservice",
-                name: "addservice",
-                component: FormAddService,
-                meta: { title: 'Добавление Услуги Черепенникова Игоря' },
-            },
+            // {
+            //     path: "addservice",
+            //     name: "addservice",
+            //     component: FormAddService,
+            //     meta: { title: 'Добавление Услуги Черепенникова Игоря' },
+            // },
 
-            {
-                path: "addtehnology",
-                name: "addtehnology",
-                component: Tehnology,
-                meta: { title: 'Добавление технологии Черепенникова Игоря' },
+            // {
+            //     path: "addtehnology",
+            //     name: "addtehnology",
+            //     component: Tehnology,
+            //     meta: { title: 'Добавление технологии Черепенникова Игоря' },
 
-            },
+            // },
 
-            {
-                path: "moodle/:id",
-                name: "Moodle",
-                component: FormGenCsv,
-                props: true,
-                meta: { title: 'Генерация файла(списка) учеников' },
-            },
-            {
-                path: "moodle/:id",
-                name: "VueMoodle",
-                component: VueGenCsv,
-                meta: { title: 'Генерация файла(списка) учеников' },
-            },
+            // {
+            //     path: "moodle/:id",
+            //     name: "Moodle",
+            //     component: FormGenCsv,
+            //     props: true,
+            //     meta: { title: 'Генерация файла(списка) учеников' },
+            // },
+            // {
+            //     path: "moodle/:id",
+            //     name: "VueMoodle",
+            //     component: VueGenCsv,
+            //     meta: { title: 'Генерация файла(списка) учеников' },
+            // },
 
         ],
         meta: { title: ' Test Quasar' }
