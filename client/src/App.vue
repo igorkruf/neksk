@@ -1,33 +1,52 @@
 <template>
-  <div class="body">
-    <ksk-news></ksk-news>
+  <div class="row justify-center body_neksk">
+    <popup v-if="PopupPrimerShow" @close="closePopupPrimer1()"> </popup>
+    <ksk-news @visible_popup="vp"></ksk-news>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
 import kskNews from './components/Raznoe/Newsksk66/Newsksk66.vue';
+import popup from '@/components/Popup/Popup_service.vue';
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
-
+    const PopupPrimerShow = ref(false);
+    const vp = () => {
+      console.log('откроем модальное окно');
+    };
+    const showPopupPrimer1 = () => {
+      console.log('показать попап');
+      PopupPrimerShow.value = true;
+      console.log(PopupPrimerShow.value);
+    };
+    const closePopupPrimer1 = () => {
+      PopupPrimerShow.value = false;
+      console.log(PopupPrimerShow.value);
+    };
     return {
       leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
+      showPopupPrimer1,
+      closePopupPrimer1,
+      PopupPrimerShow,
+      vp,
+      // toggleLeftDrawer() {
+      //   leftDrawerOpen.value = !leftDrawerOpen.value;
+      // },
     };
   },
   components: {
     kskNews,
+    popup: popup,
   },
 };
 </script>
 <style>
-.body {
+.body_neksk {
   box-sizing: border-box;
+  background-color: #a0a3a5a2;
   min-height: 100vh;
-  background-color: #8b7b78;
 }
 .header {
   background-color: #8b7b78;
@@ -84,7 +103,7 @@ export default {
 }
 .pr-enter-active,
 .pr-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.7s ease;
 }
 
 .pr-enter-from,
@@ -96,7 +115,6 @@ export default {
 /* ///////////////////////////// */
 .pr1-enter-to {
   opacity: 1;
-  transform: translateY(100px);
 }
 .pr1-leave-from {
   opacity: 1;
@@ -112,25 +130,25 @@ export default {
 
 .pr1-leave-to {
   opacity: 0;
-  transform: translateY(-100px);
 }
 
 /* /////////////////////////// */
 /*//////////////////////////////*/
 /* ///Анимация списка технологий// */
-.list_tehnologes-enter-to,
-.list_tehnologes-leave-from {
+.list_ksknews-enter-to,
+.list_ksknews-leave-from {
   opacity: 1;
+
   /* transform: rotate(360deg); */
 }
-.list_tehnologes-enter-active,
-.list_tehnologes-leave-active {
-  transition: all 0.5s ease-in-out;
+
+.list_ksknews-enter-active,
+.list_ksknews-leave-active {
+  transition: all 300;
 }
 
-.list_tehnologes-enter-from,
-.list_tehnologes-leave-to {
+.list_ksknews-enter-from,
+.list_ksknews-leave-to {
   opacity: 0;
-  /* transform: rotate(270deg); */
 }
 </style>

@@ -3,16 +3,17 @@
     <div class="modal-backdrop" v-if="visible_modal_backdrop" @click.self="visible_modal = !visible_modal">
       <transition name="pr1" appear @after-enter="afterEnter" @after-leave="afterLeave_modal">
         <div class="modal" v-if="visible_modal">
-          <slot name="header">
-            This is the default tile!
-
-            <q-btn class="close" round @click="visible_modal = !visible_modal"><q-icon name="close" /></q-btn>
-          </slot>
-          <div class="modal-body">
-            <slot name="body"> I'm the default body! </slot>
-          </div>
-          <div class="modal-footer">
-            <slot name="footer"> </slot>
+          <div class="wrap_modal">
+            <q-btn class="close_btn" round @click="visible_modal = !visible_modal"><q-icon name="close" /></q-btn>
+            <div class="modal-header">
+              <slot name="header"> </slot>
+            </div>
+            <div class="modal-body">
+              <slot name="body"> </slot>
+            </div>
+            <div class="modal-footer">
+              <slot name="footer"> </slot>
+            </div>
           </div>
         </div>
       </transition>
@@ -37,14 +38,16 @@ export default {
 
   methods: {
     afterEnter() {
-      let ddd = document.querySelector('.modal');
-      ddd.style.top = '100px';
+      //let ddd = document.querySelector('.modal');
+      // ddd.style.top = '100px';
+      document.body.style.overflow = 'hidden';
     },
     afterLeave_modal() {
       this.visible_modal_backdrop = !this.visible_modal_backdrop;
     },
     afterLeave() {
       this.$emit('close');
+      document.body.style.overflow = 'visible';
     },
   },
   mounted() {
@@ -72,14 +75,18 @@ export default {
   z-index: 2001;
 }
 .modal {
-  position: fixed;
-  top: 0px;
+  display: block;
+  //position:fixed;
+  // top: 0px;
   background-color: #fff;
   box-shadow: 0 0 17px 0 #e7e7e7;
   padding: 16px;
-  width: 900px;
+  width: 80vw;
+  height: 100vh;
+  overflow: scroll;
   z-index: 2002;
   left: calc(50vw - 450px);
+  overflow: auto;
   &__header,
   &__footer {
     display: flex;
@@ -91,6 +98,26 @@ export default {
     justify-content: space-between;
     align-content: center;
   }
+}
+.wrap_modal {
+  border: 0px solid red;
+  position: relative;
+}
+.close_btn {
+  position: fixed !important;
+  top: 40px;
+  right: 40px;
+  background-color: #fff !important;
+}
+.modal-header {
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+}
+.modal-body {
+  font-size: 14px;
+  text-align: justify;
+  padding: 20px;
 }
 </style>
 
