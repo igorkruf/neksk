@@ -5,7 +5,7 @@ module.exports = {
     return {
       devServer: {
         proxy: {
-          'http://neksk.ru/wp-json': {
+          '/wp-json': {
             target: 'https://ksk66.ru',
             secure: false,
             changeOrigin: true

@@ -45,7 +45,7 @@ export default {
 <style>
 .body_neksk {
   box-sizing: border-box;
-  background-color: #a0a3a5a2;
+  background-color: #e9e9e9;
   min-height: 100vh;
 }
 .header {
